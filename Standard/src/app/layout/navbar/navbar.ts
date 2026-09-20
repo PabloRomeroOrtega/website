@@ -1,14 +1,12 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { ScrollService } from '../../core/scroll.service';
 import { SiteConfigService } from '../../core/site-config.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule],
+  imports: [MatIconModule, MatMenuModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })

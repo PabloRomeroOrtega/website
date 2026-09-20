@@ -1,44 +1,34 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SectionHeading } from '../../shared/section-heading/section-heading';
 import { SiteConfigService } from '../../core/site-config.service';
 
+/**
+ * Reserva por llamada o por WhatsApp. No hay servidor: el formulario compone un
+ * mensaje y abre WhatsApp, de modo que el restaurante recibe cada reserva por escrito.
+ */
 @Component({
   selector: 'app-reservation',
-  imports: [
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSelectModule,
-    SectionHeading,
-  ],
+  imports: [ReactiveFormsModule, MatIconModule, SectionHeading],
   templateUrl: './reservation.html',
   styleUrl: './reservation.scss',
 })
 export class Reservation {
   private readonly siteConfigService = inject(SiteConfigService);
   private readonly formBuilder = inject(FormBuilder);
-  private readonly snackBar = inject(MatSnackBar);
 
   readonly config = this.siteConfigService.config;
-  readonly minDate = new Date();
+  readonly minDate = this.toIsoDate(new Date());
+
+  readonly phone = this.config.contact.phone;
+  readonly whatsappDigits = this.config.contact.whatsapp.replace(/\D/g, '');
+  readonly unavailable = signal(false);
 
   readonly form = this.formBuilder.nonNullable.group({
     fullName: ['', [Validators.required, Validators.minLength(2)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required]],
     guests: [2, [Validators.required]],
-    date: [null as Date | null, [Validators.required]],
+    date: ['', [Validators.required]],
     time: ['', [Validators.required]],
     notes: [''],
   });
@@ -48,21 +38,36 @@ export class Reservation {
       this.form.markAllAsTouched();
       return;
     }
+    if (!this.whatsappDigits) {
+      this.unavailable.set(true);
+      return;
+    }
+    const v = this.form.getRawValue();
+    const lines = [
+      this.config.reservation.messageIntro,
+      `Nombre: ${v.fullName.trim()}`,
+      `Personas: ${v.guests}`,
+      `Fecha: ${this.formatDate(v.date)}`,
+      `Hora: ${v.time}`,
+    ];
+    if (v.notes.trim()) {
+      lines.push(`Notas: ${v.notes.trim()}`);
+    }
+    const url = `https://wa.me/${this.whatsappDigits}?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(url, '_blank', 'noopener');
+  }
 
-    this.snackBar.open(this.config.reservation.successMessage, 'Close', {
-      duration: 6000,
-      horizontalPosition: 'center',
-      verticalPosition: 'bottom',
+  private formatDate(iso: string): string {
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString('es-ES', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
     });
+  }
 
-    this.form.reset({
-      fullName: '',
-      email: '',
-      phone: '',
-      guests: 2,
-      date: null,
-      time: '',
-      notes: '',
-    });
+  private toIsoDate(d: Date): string {
+    const p = (n: number) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
   }
 }

@@ -1,51 +1,60 @@
-<section id="carta" class="offerings">
-  <div class="offerings__inner">
+<section id="carta" class="carta">
+  <div class="carta__inner">
     <app-section-heading
       eyebrow="Carta"
-      [title]="config.offerings.title"
-      [subtitle]="config.offerings.subtitle"
+      [title]="config.menu.title"
+      [subtitle]="config.menu.subtitle"
     />
 
-    <mat-chip-listbox class="offerings__filters" aria-label="Filtrar por categoría">
-      @for (category of categories(); track category) {
-        <mat-chip-option
-          [selected]="selectedCategory() === category"
-          (click)="selectCategory(category)"
-          (keyup.enter)="selectCategory(category)"
+    <div class="carta__filters" role="group" aria-label="Filtrar la carta por categoría">
+      <button type="button" [attr.aria-pressed]="selectedId() === null" (click)="select(null)">
+        {{ config.menu.allLabel }}
+      </button>
+      @for (cat of config.menu.categories; track cat.id) {
+        <button
+          type="button"
+          [attr.aria-pressed]="selectedId() === cat.id"
+          (click)="select(cat.id)"
         >
-          {{ category }}
-        </mat-chip-option>
-      }
-    </mat-chip-listbox>
-
-    <div class="offerings__grid">
-      @for (item of filteredItems(); track item.id) {
-        <mat-card class="offerings__card" appearance="outlined">
-          <div class="offerings__media">
-            @if (item.image) {
-              <img [src]="item.image" [alt]="item.name" loading="lazy" />
-            } @else {
-              <app-placeholder-image [label]="item.name" />
-            }
-          </div>
-
-          <mat-card-content>
-            <div class="offerings__row">
-              <h3>{{ item.name }}</h3>
-              <span class="offerings__price">{{ item.price }}</span>
-            </div>
-            <p>{{ item.description }}</p>
-
-            @if (item.tags?.length) {
-              <div class="offerings__tags">
-                @for (tag of item.tags; track tag) {
-                  <span class="offerings__tag">{{ tag }}</span>
-                }
-              </div>
-            }
-          </mat-card-content>
-        </mat-card>
+          {{ cat.name }}
+        </button>
       }
     </div>
+
+    <div class="carta__grid" [class.carta__grid--single]="selectedId() !== null">
+      @for (cat of visibleCategories(); track cat.id) {
+        <article class="cat">
+          <h3 class="cat__title">{{ cat.name }}</h3>
+          @if (cat.note) {
+            <p class="cat__note">{{ cat.note }}</p>
+          }
+          @if (cat.halfColumn) {
+            <p class="cat__cols" aria-hidden="true">
+              <span>Ración</span>
+              <span>½ ración</span>
+            </p>
+          }
+          <ul>
+            @for (item of cat.items; track item.name) {
+              <li>
+                <div class="item__row">
+                  <span class="item__name">{{ item.name }}</span>
+                  <span class="item__leader" aria-hidden="true"></span>
+                  <span class="item__price">{{ item.price }}</span>
+                  @if (cat.halfColumn) {
+                    <span class="item__half">{{ item.half ?? '' }}</span>
+                  }
+                </div>
+                @if (item.description) {
+                  <p>{{ item.description }}</p>
+                }
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+
+    <p class="carta__vat">{{ config.menu.note }}</p>
   </div>
 </section>

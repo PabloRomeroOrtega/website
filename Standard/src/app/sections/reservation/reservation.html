@@ -1,123 +1,134 @@
-@if (config.reservation.enabled) {
-  <section id="reserva" class="reservation">
-    <div class="reservation__inner">
-      <div class="reservation__intro">
-        <app-section-heading
-          eyebrow="Reserva y Contacto"
-          [title]="config.reservation.title"
-          [subtitle]="config.reservation.subtitle"
-          align="left"
-        />
+<section id="reserva" class="reserva">
+  <div class="reserva__inner">
+    <div class="reserva__intro">
+      <app-section-heading
+        eyebrow="Reservas"
+        [title]="config.reservation.title"
+        [subtitle]="config.reservation.subtitle"
+        align="left"
+      />
 
-        <ul class="reservation__contact-list">
-          <li>
-            <mat-icon>place</mat-icon>
-            <span>{{ config.contact.address }}</span>
-          </li>
+      <ol class="reserva__steps">
+        @for (step of config.reservation.steps; track step) {
+          <li>{{ step }}</li>
+        }
+      </ol>
+
+      @if (phone) {
+        <a class="btn btn--gold reserva__call" [href]="'tel:' + phone">
+          <mat-icon>call</mat-icon>
+          Llamar al {{ phone }}
+        </a>
+      }
+
+      <div class="reserva__contact">
+        <p>O también puedes contactarnos a través de:</p>
+        <ul>
           <li>
             <mat-icon>call</mat-icon>
-            <a [href]="'tel:' + config.contact.phone">{{ config.contact.phone }}</a>
+            @if (phone) {
+              <a [href]="'tel:' + phone">{{ phone }}</a>
+            } @else {
+              <span class="reserva__soon">Teléfono: próximamente</span>
+            }
+          </li>
+          <li>
+            <mat-icon>chat</mat-icon>
+            @if (whatsappDigits) {
+              <a
+                [href]="'https://wa.me/' + whatsappDigits"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp {{ config.contact.whatsapp }}
+              </a>
+            } @else {
+              <span class="reserva__soon">WhatsApp: próximamente</span>
+            }
           </li>
           <li>
             <mat-icon>mail</mat-icon>
-            <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>
+            @if (config.contact.email) {
+              <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>
+            } @else {
+              <span class="reserva__soon">Email: próximamente</span>
+            }
           </li>
-        </ul>
-
-        <div class="reservation__hours">
-          <h3>
-            <mat-icon>schedule</mat-icon>
-            Horario
-          </h3>
-          <ul>
-            @for (row of config.contact.hours; track row.day) {
-              <li [class.reservation__hours-closed]="row.closed">
-                <span>{{ row.day }}</span>
-                <span>{{ row.hours }}</span>
-              </li>
+          <li>
+            <mat-icon>place</mat-icon>
+            @if (config.contact.address) {
+              <span>{{ config.contact.address }}</span>
+            } @else {
+              <span class="reserva__soon">Dirección: próximamente</span>
             }
-          </ul>
-        </div>
-
-        <div class="reservation__socials">
+          </li>
           @for (social of config.contact.socials; track social.label) {
-            <a [href]="social.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label">
+            <li>
               <mat-icon>{{ social.icon }}</mat-icon>
-            </a>
+              <a [href]="social.url" target="_blank" rel="noopener noreferrer">{{
+                social.label
+              }}</a>
+            </li>
           }
-        </div>
+        </ul>
       </div>
-
-      <form class="reservation__form" [formGroup]="form" (ngSubmit)="submit()">
-        <h3>Solicita tu mesa</h3>
-
-        <div class="reservation__grid">
-          <mat-form-field appearance="outline">
-            <mat-label>Nombre completo</mat-label>
-            <input matInput formControlName="fullName" autocomplete="name" />
-            @if (form.controls.fullName.invalid && form.controls.fullName.touched) {
-              <mat-error>Introduce tu nombre.</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Teléfono</mat-label>
-            <input matInput formControlName="phone" autocomplete="tel" />
-            @if (form.controls.phone.invalid && form.controls.phone.touched) {
-              <mat-error>Introduce un teléfono.</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="reservation__span-2">
-            <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" autocomplete="email" />
-            @if (form.controls.email.invalid && form.controls.email.touched) {
-              <mat-error>Introduce un email válido.</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Fecha</mat-label>
-            <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="date" />
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            @if (form.controls.date.invalid && form.controls.date.touched) {
-              <mat-error>Elige una fecha.</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Hora</mat-label>
-            <mat-select formControlName="time">
-              @for (slot of config.reservation.timeSlots; track slot) {
-                <mat-option [value]="slot">{{ slot }}</mat-option>
-              }
-            </mat-select>
-            @if (form.controls.time.invalid && form.controls.time.touched) {
-              <mat-error>Elige una hora.</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field appearance="outline">
-            <mat-label>Comensales</mat-label>
-            <mat-select formControlName="guests">
-              @for (size of config.reservation.partySizes; track size) {
-                <mat-option [value]="size">{{ size }} {{ size === 1 ? 'persona' : 'personas' }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="reservation__span-2">
-            <mat-label>Notas (opcional)</mat-label>
-            <textarea matInput formControlName="notes" rows="3" placeholder="Alergias, ocasión especial, preferencia de mesa…"></textarea>
-          </mat-form-field>
-        </div>
-
-        <button mat-flat-button color="primary" type="submit" class="reservation__submit">
-          <mat-icon>event_available</mat-icon>
-          Solicitar reserva
-        </button>
-      </form>
     </div>
-  </section>
-}
+
+    <form class="reserva__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <h3>Reserva por WhatsApp</h3>
+
+      <label class="field field--full">
+        <span>Nombre</span>
+        <input type="text" formControlName="fullName" autocomplete="name" />
+        @if (form.controls.fullName.invalid && form.controls.fullName.touched) {
+          <small>Escribe tu nombre.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Fecha</span>
+        <input type="date" formControlName="date" [min]="minDate" />
+        @if (form.controls.date.invalid && form.controls.date.touched) {
+          <small>Elige una fecha.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Hora</span>
+        <input type="time" formControlName="time" />
+        @if (form.controls.time.invalid && form.controls.time.touched) {
+          <small>Elige una hora.</small>
+        }
+      </label>
+
+      <label class="field field--full">
+        <span>Personas</span>
+        <select formControlName="guests">
+          @for (n of config.reservation.partySizes; track n) {
+            <option [value]="n">{{ n }} {{ n === 1 ? 'persona' : 'personas' }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field field--full">
+        <span>Notas (opcional)</span>
+        <textarea
+          formControlName="notes"
+          rows="2"
+          placeholder="Alergias, cumpleaños, trona…"
+        ></textarea>
+      </label>
+
+      <button class="btn btn--gold reserva__submit" type="submit">
+        <mat-icon>chat</mat-icon>
+        Reservar por WhatsApp
+      </button>
+
+      @if (unavailable()) {
+        <p class="reserva__notice" role="status">
+          Aún no podemos recibir reservas por aquí. Consulta la carta y vuelve pronto.
+        </p>
+      }
+    </form>
+  </div>
+</section>

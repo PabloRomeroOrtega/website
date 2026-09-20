@@ -1,0 +1,25 @@
+<section id="destacados" class="featured">
+  <div class="featured__inner">
+    <app-section-heading
+      eyebrow="La taberna"
+      [title]="config.featured.title"
+      [subtitle]="config.featured.subtitle"
+    />
+
+    <ul class="featured__grid">
+      @for (dish of config.featured.dishes; track dish.name) {
+        <li class="dish">
+          <img [src]="dish.image" [alt]="dish.imageAlt" loading="lazy" />
+          <div class="dish__body">
+            <h3>{{ dish.name }}</h3>
+            <p>{{ dish.description }}</p>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <div class="featured__cta">
+      <button class="btn btn--gold" type="button" (click)="goTo('carta')">Ver la carta</button>
+    </div>
+  </div>
+</section>

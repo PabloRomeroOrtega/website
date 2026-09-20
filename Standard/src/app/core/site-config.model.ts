@@ -9,26 +9,34 @@ export interface ValueItem {
   description: string;
 }
 
-export interface OfferingItem {
+export interface MenuItem {
+  name: string;
+  /** Precio de la ración (o del plato, si no hay media ración). */
+  price: string;
+  /** Precio de la media ración, si existe. */
+  half?: string;
+  description?: string;
+}
+
+export interface MenuCategory {
   id: string;
   name: string;
+  note?: string;
+  /** Muestra la columna "Ración / ½ ración". */
+  halfColumn?: boolean;
+  items: MenuItem[];
+}
+
+export interface FeaturedDish {
+  name: string;
   description: string;
-  price: string;
-  category: string;
-  image?: string;
-  tags?: string[];
+  image: string;
+  imageAlt: string;
 }
 
 export interface GalleryImage {
-  src?: string;
+  src: string;
   alt: string;
-  category: string;
-}
-
-export interface OpeningHour {
-  day: string;
-  hours: string;
-  closed?: boolean;
 }
 
 export interface SocialLink {
@@ -37,57 +45,56 @@ export interface SocialLink {
   label: string;
 }
 
-export interface ReservationConfig {
-  enabled: boolean;
-  title: string;
-  subtitle: string;
-  partySizes: number[];
-  timeSlots: string[];
-  successMessage: string;
-}
-
 export interface SiteConfig {
   business: {
     name: string;
     shortName: string;
+    kind: string;
     tagline: string;
-    logoIcon: string;
-    description: string;
-    heroBadge: string;
-    heroImage?: string;
+    logo: string;
+    heroImage: string;
+    heroImageAlt: string;
   };
   nav: NavLink[];
   highlights: ValueItem[];
-  about: {
+  featured: {
     title: string;
     subtitle: string;
-    image?: string;
-    paragraphs: string[];
+    dishes: FeaturedDish[];
   };
-  offerings: {
+  menu: {
     title: string;
     subtitle: string;
-    categoryAllLabel: string;
-    items: OfferingItem[];
+    allLabel: string;
+    note: string;
+    categories: MenuCategory[];
   };
   gallery: {
     title: string;
     subtitle: string;
-    categoryAllLabel: string;
     images: GalleryImage[];
   };
-  location: {
+  reservation: {
     title: string;
     subtitle: string;
-    image?: string;
-    hoursSummary: string;
+    partySizes: number[];
+    /** Primera línea del mensaje de WhatsApp. */
+    messageIntro: string;
+    steps: string[];
   };
-  reservation: ReservationConfig;
+  visit: {
+    title: string;
+    subtitle: string;
+    image: string;
+    imageAlt: string;
+  };
+  /** Cadenas vacías = "pendiente": aparece "próximamente" o se oculta el botón correspondiente. */
   contact: {
     address: string;
     phone: string;
+    whatsapp: string;
     email: string;
-    hours: OpeningHour[];
+    hours: string;
     socials: SocialLink[];
   };
   footer: {
