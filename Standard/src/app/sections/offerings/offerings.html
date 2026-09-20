@@ -1,0 +1,51 @@
+<section id="carta" class="offerings">
+  <div class="offerings__inner">
+    <app-section-heading
+      eyebrow="Carta"
+      [title]="config.offerings.title"
+      [subtitle]="config.offerings.subtitle"
+    />
+
+    <mat-chip-listbox class="offerings__filters" aria-label="Filtrar por categoría">
+      @for (category of categories(); track category) {
+        <mat-chip-option
+          [selected]="selectedCategory() === category"
+          (click)="selectCategory(category)"
+          (keyup.enter)="selectCategory(category)"
+        >
+          {{ category }}
+        </mat-chip-option>
+      }
+    </mat-chip-listbox>
+
+    <div class="offerings__grid">
+      @for (item of filteredItems(); track item.id) {
+        <mat-card class="offerings__card" appearance="outlined">
+          <div class="offerings__media">
+            @if (item.image) {
+              <img [src]="item.image" [alt]="item.name" loading="lazy" />
+            } @else {
+              <app-placeholder-image [label]="item.name" />
+            }
+          </div>
+
+          <mat-card-content>
+            <div class="offerings__row">
+              <h3>{{ item.name }}</h3>
+              <span class="offerings__price">{{ item.price }}</span>
+            </div>
+            <p>{{ item.description }}</p>
+
+            @if (item.tags?.length) {
+              <div class="offerings__tags">
+                @for (tag of item.tags; track tag) {
+                  <span class="offerings__tag">{{ tag }}</span>
+                }
+              </div>
+            }
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  </div>
+</section>

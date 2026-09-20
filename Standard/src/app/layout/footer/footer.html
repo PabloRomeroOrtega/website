@@ -1,0 +1,53 @@
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <mat-icon>{{ config.business.logoIcon }}</mat-icon>
+        <span>{{ config.business.shortName }}</span>
+      </div>
+      <p>{{ config.business.description }}</p>
+      <div class="footer__socials">
+        @for (social of config.contact.socials; track social.label) {
+          <a [href]="social.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label">
+            <mat-icon>{{ social.icon }}</mat-icon>
+          </a>
+        }
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h3>Navegación</h3>
+      <ul>
+        @for (link of config.nav; track link.sectionId) {
+          <li><button type="button" (click)="goTo(link.sectionId)">{{ link.label }}</button></li>
+        }
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3>Contacto</h3>
+      <ul class="footer__contact-list">
+        <li>
+          <mat-icon>place</mat-icon>
+          <span>{{ config.contact.address }}</span>
+        </li>
+        <li>
+          <mat-icon>call</mat-icon>
+          <span>{{ config.contact.phone }}</span>
+        </li>
+        <li>
+          <mat-icon>mail</mat-icon>
+          <span>{{ config.contact.email }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <p>&copy; {{ currentYear }} {{ config.footer.copyrightName }}. Todos los derechos reservados.</p>
+    <nav class="footer__legal">
+      <a routerLink="/privacidad">Política de privacidad</a>
+      <a routerLink="/terminos">Términos y condiciones</a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,33 @@
+<section id="galeria" class="gallery">
+  <div class="gallery__inner">
+    <app-section-heading
+      eyebrow="Galería"
+      [title]="config.gallery.title"
+      [subtitle]="config.gallery.subtitle"
+    />
+
+    <mat-chip-listbox class="gallery__filters" aria-label="Filtrar por categoría">
+      @for (category of categories(); track category) {
+        <mat-chip-option
+          [selected]="selectedCategory() === category"
+          (click)="selectCategory(category)"
+          (keyup.enter)="selectCategory(category)"
+        >
+          {{ category }}
+        </mat-chip-option>
+      }
+    </mat-chip-listbox>
+
+    <div class="gallery__grid">
+      @for (image of filteredImages(); track $index) {
+        <div class="gallery__item">
+          @if (image.src) {
+            <img [src]="image.src" [alt]="image.alt" loading="lazy" />
+          } @else {
+            <app-placeholder-image [label]="image.alt" />
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>

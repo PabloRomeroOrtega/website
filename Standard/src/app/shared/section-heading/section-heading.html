@@ -1,0 +1,9 @@
+<div class="heading" [class.heading--left]="align() === 'left'" [class.heading--light]="light()">
+  @if (eyebrow()) {
+    <span class="heading__eyebrow">{{ eyebrow() }}</span>
+  }
+  <h2 class="heading__title">{{ title() }}</h2>
+  @if (subtitle()) {
+    <p class="heading__subtitle">{{ subtitle() }}</p>
+  }
+</div>

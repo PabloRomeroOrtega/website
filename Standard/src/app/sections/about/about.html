@@ -1,0 +1,23 @@
+<section id="quienes-somos" class="about">
+  <div class="about__inner">
+    <div class="about__media">
+      @if (config.about.image) {
+        <img [src]="config.about.image" [alt]="config.about.subtitle" loading="lazy" />
+      } @else {
+        <app-placeholder-image label="Foto del local o del equipo" />
+      }
+    </div>
+
+    <div class="about__copy">
+      <app-section-heading
+        eyebrow="¿Quiénes somos?"
+        [title]="config.about.subtitle"
+        align="left"
+      />
+
+      @for (paragraph of config.about.paragraphs; track paragraph) {
+        <p>{{ paragraph }}</p>
+      }
+    </div>
+  </div>
+</section>

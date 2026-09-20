@@ -1,0 +1,30 @@
+<section id="inicio" class="hero">
+  <div class="hero__inner">
+    <div class="hero__copy">
+      @if (config.business.heroBadge) {
+        <span class="hero__badge">{{ config.business.heroBadge }}</span>
+      }
+
+      <h1 class="hero__title">{{ config.business.name }}</h1>
+      <p class="hero__tagline">{{ config.business.tagline }}</p>
+      <p class="hero__description">{{ config.business.description }}</p>
+
+      <div class="hero__actions">
+        <button mat-flat-button color="primary" type="button" (click)="goTo('reserva')">
+          Reservar mesa
+        </button>
+        <button mat-stroked-button type="button" (click)="goTo('carta')">
+          Ver la carta
+        </button>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      @if (config.business.heroImage) {
+        <img [src]="config.business.heroImage" [alt]="config.business.name" />
+      } @else {
+        <app-placeholder-image label="Foto del local o de un plato" />
+      }
+    </div>
+  </div>
+</section>

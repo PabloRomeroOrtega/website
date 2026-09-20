@@ -1,0 +1,58 @@
+<section id="localizacion" class="location">
+  <div class="location__inner">
+    <app-section-heading
+      eyebrow="Localización"
+      [title]="config.location.title"
+      [subtitle]="config.location.subtitle"
+    />
+
+    <div class="location__grid">
+      <div class="location__map">
+        <iframe
+          [src]="mapEmbedUrl"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title="Mapa de ubicación"
+        ></iframe>
+      </div>
+
+      <div class="location__info">
+        <div class="location__photo">
+          @if (config.location.image) {
+            <img [src]="config.location.image" [alt]="config.business.name" loading="lazy" />
+          } @else {
+            <app-placeholder-image label="Foto de la fachada" />
+          }
+        </div>
+
+        <ul class="location__details">
+          <li>
+            <mat-icon>place</mat-icon>
+            <span>{{ config.contact.address }}</span>
+          </li>
+          <li>
+            <mat-icon>call</mat-icon>
+            <a [href]="'tel:' + config.contact.phone">{{ config.contact.phone }}</a>
+          </li>
+          <li>
+            <mat-icon>schedule</mat-icon>
+            <span>{{ config.location.hoursSummary }}</span>
+          </li>
+        </ul>
+
+        <a
+          mat-flat-button
+          color="primary"
+          [href]="directionsUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="location__cta"
+        >
+          <mat-icon>directions</mat-icon>
+          Cómo llegar
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
