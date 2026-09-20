@@ -52,6 +52,41 @@
   text-align: center;
 }
 
+.reserva__contact {
+  margin-top: 2rem;
+
+  p {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--ua-sun);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+  }
+
+  mat-icon {
+    color: var(--ua-sun);
+  }
+}
+
+.reserva__soon {
+  color: var(--ua-muted);
+  font-weight: 600;
+}
+
 .reserva__form {
   display: grid;
   grid-template-columns: 1fr 1fr;

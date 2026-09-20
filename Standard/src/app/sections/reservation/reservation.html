@@ -20,6 +20,58 @@
           Llamar al {{ phone }}
         </a>
       }
+
+      <div class="reserva__contact">
+        <p>O también puedes contactarnos a través de:</p>
+        <ul>
+          <li>
+            <mat-icon>call</mat-icon>
+            @if (phone) {
+              <a [href]="'tel:' + phone">{{ phone }}</a>
+            } @else {
+              <span class="reserva__soon">Teléfono: próximamente</span>
+            }
+          </li>
+          <li>
+            <mat-icon>chat</mat-icon>
+            @if (whatsappDigits) {
+              <a
+                [href]="'https://wa.me/' + whatsappDigits"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp {{ config.contact.whatsapp }}
+              </a>
+            } @else {
+              <span class="reserva__soon">WhatsApp: próximamente</span>
+            }
+          </li>
+          <li>
+            <mat-icon>mail</mat-icon>
+            @if (config.contact.email) {
+              <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>
+            } @else {
+              <span class="reserva__soon">Email: próximamente</span>
+            }
+          </li>
+          <li>
+            <mat-icon>place</mat-icon>
+            @if (config.contact.address) {
+              <span>{{ config.contact.address }}</span>
+            } @else {
+              <span class="reserva__soon">Dirección: próximamente</span>
+            }
+          </li>
+          @for (social of config.contact.socials; track social.label) {
+            <li>
+              <mat-icon>{{ social.icon }}</mat-icon>
+              <a [href]="social.url" target="_blank" rel="noopener noreferrer">{{
+                social.label
+              }}</a>
+            </li>
+          }
+        </ul>
+      </div>
     </div>
 
     <form class="reserva__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
