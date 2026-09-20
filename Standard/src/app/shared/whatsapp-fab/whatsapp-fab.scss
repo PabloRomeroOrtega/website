@@ -1,8 +1,16 @@
 .whatsapp-fab {
   position: fixed;
-  right: 1.5rem;
-  bottom: 1.5rem;
+  right: 1.25rem;
+  bottom: 1.25rem;
   z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 999px;
+  background: #25d366;
+  color: var(--ua-ink);
+  font-weight: 800;
   text-decoration: none;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.25));
+  box-shadow: 0 6px 18px rgb(0 0 0 / 45%);
 }

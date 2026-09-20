@@ -1,58 +1,71 @@
-<section id="localizacion" class="location">
-  <div class="location__inner">
-    <app-section-heading
-      eyebrow="Localización"
-      [title]="config.location.title"
-      [subtitle]="config.location.subtitle"
-    />
+<section id="visitanos" class="visit">
+  <div class="visit__inner">
+    <div class="visit__photo">
+      <img [src]="config.visit.image" [alt]="config.visit.imageAlt" loading="lazy" width="564" height="481" />
+    </div>
 
-    <div class="location__grid">
-      <div class="location__map">
-        <iframe
-          [src]="mapEmbedUrl"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen
-          title="Mapa de ubicación"
-        ></iframe>
-      </div>
+    <div class="visit__info">
+      <app-section-heading
+        eyebrow="Visítanos"
+        [title]="config.visit.title"
+        [subtitle]="config.visit.subtitle"
+        align="left"
+      />
 
-      <div class="location__info">
-        <div class="location__photo">
-          @if (config.location.image) {
-            <img [src]="config.location.image" [alt]="config.business.name" loading="lazy" />
-          } @else {
-            <app-placeholder-image label="Foto de la fachada" />
-          }
-        </div>
-
-        <ul class="location__details">
+      <ul class="visit__details">
+        @if (config.contact.address) {
           <li>
             <mat-icon>place</mat-icon>
             <span>{{ config.contact.address }}</span>
           </li>
+        }
+        @if (config.contact.phone) {
           <li>
             <mat-icon>call</mat-icon>
             <a [href]="'tel:' + config.contact.phone">{{ config.contact.phone }}</a>
           </li>
+        }
+        @if (config.contact.hours) {
           <li>
             <mat-icon>schedule</mat-icon>
-            <span>{{ config.location.hoursSummary }}</span>
+            <span>{{ config.contact.hours }}</span>
           </li>
-        </ul>
+        }
+        <li>
+          <mat-icon>restaurant</mat-icon>
+          <span>
+            {{ config.menu.menuDelDia.title }} {{ config.menu.menuDelDia.price }},
+            {{ config.menu.menuDelDia.days.toLowerCase() }}
+          </span>
+        </li>
+      </ul>
 
-        <a
-          mat-flat-button
-          color="primary"
-          [href]="directionsUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="location__cta"
-        >
-          <mat-icon>directions</mat-icon>
-          Cómo llegar
-        </a>
+      <div class="visit__actions">
+        @if (config.contact.phone) {
+          <a class="btn btn--sun" [href]="'tel:' + config.contact.phone">
+            <mat-icon>call</mat-icon>
+            Llamar
+          </a>
+        }
+        @if (whatsappUrl) {
+          <a class="btn btn--ghost" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">
+            <mat-icon>chat</mat-icon>
+            WhatsApp
+          </a>
+        }
+        @if (directionsUrl) {
+          <a class="btn btn--ghost" [href]="directionsUrl" target="_blank" rel="noopener noreferrer">
+            <mat-icon>directions</mat-icon>
+            Cómo llegar
+          </a>
+        }
       </div>
     </div>
   </div>
+
+  @if (mapEmbedUrl) {
+    <div class="visit__map">
+      <iframe [src]="mapEmbedUrl" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de ubicación"></iframe>
+    </div>
+  }
 </section>

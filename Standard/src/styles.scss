@@ -1,45 +1,58 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
 html {
   height: 100%;
   scroll-behavior: smooth;
 
-  // Re-skin a client site by swapping these two palettes. Everything else
-  // in the template (buttons, chips, cards, form fields...) follows along
-  // automatically through Angular Material's system CSS variables.
   @include mat.theme(
     (
       color: (
-        primary: mat.$azure-palette,
+        primary: mat.$orange-palette,
         tertiary: mat.$blue-palette,
       ),
-      typography: Roboto,
+      typography: (
+        plain-family: 'Nunito Sans',
+        brand-family: 'Alfa Slab One',
+      ),
       density: 0,
     )
   );
 }
 
+:root {
+  /* Paleta: pizarra y brasas de las fotos, azul y sol del cartel, crema del rótulo de madera. */
+  --ua-ink: #141312;
+  --ua-slate: #1c1b19;
+  --ua-slate-2: #272522;
+  --ua-cream: #f6ecd8;
+  --ua-cream-2: #ecdcbc;
+  --ua-fire: #e8571a;
+  --ua-ember: #ff8a1f;
+  --ua-sun: #f6b90f;
+  --ua-navy: #1c3a8c;
+  --ua-navy-deep: #142a68;
+  --ua-turquoise: #22b5c4;
+  --ua-muted: #b9b0a2;
+
+  --ua-display: 'Alfa Slab One', 'Rockwell', Georgia, serif;
+  --ua-body: 'Nunito Sans', system-ui, sans-serif;
+
+  --brand-container-width: 1180px;
+  --brand-gutter: clamp(1.25rem, 4vw, 3rem);
+  --brand-radius-sm: 6px;
+  --brand-radius-md: 12px;
+}
+
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
+  color-scheme: dark;
   margin: 0;
-  height: 100%;
+  min-height: 100%;
+  background: var(--ua-ink);
+  color: var(--ua-cream);
+  font-family: var(--ua-body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
 *,
@@ -52,32 +65,105 @@ h1,
 h2,
 h3,
 p {
-  font-family: inherit;
+  margin: 0;
 }
 
-/* Layout tokens shared by every section. Tweak once, applies everywhere. */
-:root {
-  --brand-container-width: 1180px;
-  --brand-gutter: clamp(1.25rem, 4vw, 3rem);
-  --brand-radius-sm: 6px;
-  --brand-radius-md: 10px;
-  --brand-radius-lg: 12px;
-
-  /* Square off Material's default pill-shaped buttons. */
-  --mdc-filled-button-container-shape: var(--brand-radius-sm);
-  --mdc-outlined-button-container-shape: var(--brand-radius-sm);
-  --mdc-protected-button-container-shape: var(--brand-radius-sm);
-  --mdc-text-button-container-shape: var(--brand-radius-sm);
-  --mdc-fab-container-shape: var(--brand-radius-sm);
-  --mdc-extended-fab-container-shape: var(--brand-radius-sm);
+h1,
+h2,
+h3 {
+  font-family: var(--ua-display);
+  font-weight: 400;
+  line-height: 1.08;
 }
 
-.mat-mdc-button-base,
-.mdc-fab,
-.mdc-fab--extended {
-  border-radius: var(--brand-radius-sm) !important;
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
 }
 
 section[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 72px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ua-sun);
+  outline-offset: 3px;
+}
+
+/* Botones compartidos por todas las secciones. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.75rem;
+  border: 2px solid transparent;
+  border-radius: var(--brand-radius-sm);
+  font: 800 1.0625rem/1 var(--ua-body);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  .mat-icon {
+    font-size: 1.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+.btn--fire {
+  background: var(--ua-fire);
+  color: var(--ua-ink);
+  box-shadow: 0 6px 0 #9c3407;
+
+  &:hover {
+    background: var(--ua-ember);
+  }
+}
+
+.btn--sun {
+  background: var(--ua-sun);
+  color: var(--ua-ink);
+  box-shadow: 0 6px 0 #a67c00;
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--ua-cream);
+  color: var(--ua-cream);
+
+  &:hover {
+    background: var(--ua-cream);
+    color: var(--ua-ink);
+  }
+}
+
+.container {
+  max-width: var(--brand-container-width);
+  margin: 0 auto;
+  padding: 0 var(--brand-gutter);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn {
+    transition: none;
+  }
 }

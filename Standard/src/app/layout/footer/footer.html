@@ -2,17 +2,19 @@
   <div class="footer__inner">
     <div class="footer__brand">
       <div class="footer__logo">
-        <mat-icon>{{ config.business.logoIcon }}</mat-icon>
+        <app-sun [size]="44" />
         <span>{{ config.business.shortName }}</span>
       </div>
-      <p>{{ config.business.description }}</p>
-      <div class="footer__socials">
-        @for (social of config.contact.socials; track social.label) {
-          <a [href]="social.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label">
-            <mat-icon>{{ social.icon }}</mat-icon>
-          </a>
-        }
-      </div>
+      <p>{{ config.business.kind }}</p>
+      @if (config.contact.socials.length) {
+        <div class="footer__socials">
+          @for (social of config.contact.socials; track social.label) {
+            <a [href]="social.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="social.label">
+              <mat-icon>{{ social.icon }}</mat-icon>
+            </a>
+          }
+        </div>
+      }
     </div>
 
     <div class="footer__col">
@@ -27,17 +29,27 @@
     <div class="footer__col">
       <h3>Contacto</h3>
       <ul class="footer__contact-list">
+        @if (config.contact.address) {
+          <li>
+            <mat-icon>place</mat-icon>
+            <span>{{ config.contact.address }}</span>
+          </li>
+        }
+        @if (config.contact.phone) {
+          <li>
+            <mat-icon>call</mat-icon>
+            <a [href]="'tel:' + config.contact.phone">{{ config.contact.phone }}</a>
+          </li>
+        }
+        @if (config.contact.email) {
+          <li>
+            <mat-icon>mail</mat-icon>
+            <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>
+          </li>
+        }
         <li>
-          <mat-icon>place</mat-icon>
-          <span>{{ config.contact.address }}</span>
-        </li>
-        <li>
-          <mat-icon>call</mat-icon>
-          <span>{{ config.contact.phone }}</span>
-        </li>
-        <li>
-          <mat-icon>mail</mat-icon>
-          <span>{{ config.contact.email }}</span>
+          <mat-icon>restaurant</mat-icon>
+          <span>{{ config.menu.menuDelDia.title }} {{ config.menu.menuDelDia.price }}, {{ config.menu.menuDelDia.days.toLowerCase() }}</span>
         </li>
       </ul>
     </div>

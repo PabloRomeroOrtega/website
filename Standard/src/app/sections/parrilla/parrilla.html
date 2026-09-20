@@ -1,0 +1,49 @@
+<section id="parrilla" class="parrilla">
+  <div class="parrilla__inner">
+    <app-section-heading
+      eyebrow="A las brasas"
+      [title]="config.parrilla.title"
+      [subtitle]="config.parrilla.subtitle"
+    />
+
+    <div class="parrilla__feature">
+      <img
+        class="parrilla__photo"
+        [src]="config.parrilla.image"
+        [alt]="config.parrilla.imageAlt"
+        loading="lazy"
+        width="566"
+        height="290"
+      />
+
+      <ul class="parrilla__braseros">
+        @for (b of config.parrilla.braseros; track b.serves) {
+          <li class="brasero">
+            <div>
+              <span class="brasero__serves">{{ b.serves }}</span>
+              <span class="brasero__name">{{ b.name }}</span>
+            </div>
+            <strong class="brasero__price">{{ b.price }}</strong>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <ul class="parrilla__extras">
+      @for (item of config.parrilla.extras; track item.name) {
+        <li>
+          <div class="extra__row">
+            <span class="extra__name">{{ item.name }}</span>
+            <span class="extra__leader" aria-hidden="true"></span>
+            <span class="extra__price">{{ item.price }}</span>
+          </div>
+          @if (item.description) {
+            <p>{{ item.description }}</p>
+          }
+        </li>
+      }
+    </ul>
+
+    <p class="parrilla__note">{{ config.parrilla.guarnicion }}</p>
+  </div>
+</section>

@@ -1,13 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { SiteConfigService } from '../../core/site-config.service';
 
-/** Floating quick-contact button linking to the business WhatsApp number. */
+/** Botón flotante de WhatsApp. Solo aparece si hay un número configurado. */
 @Component({
   selector: 'app-whatsapp-fab',
-  imports: [MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [MatIconModule],
   templateUrl: './whatsapp-fab.html',
   styleUrl: './whatsapp-fab.scss',
 })
@@ -16,6 +14,7 @@ export class WhatsappFab {
   readonly config = this.siteConfigService.config;
 
   get whatsappLink(): string | undefined {
-    return this.config.contact.socials.find((s) => s.label === 'WhatsApp')?.url;
+    const digits = this.config.contact.whatsapp.replace(/\D/g, '');
+    return digits ? `https://wa.me/${digits}` : undefined;
   }
 }

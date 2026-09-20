@@ -3,12 +3,12 @@ import { SectionHeading } from '../../shared/section-heading/section-heading';
 import { SiteConfigService } from '../../core/site-config.service';
 
 @Component({
-  selector: 'app-gallery',
+  selector: 'app-parrilla',
   imports: [SectionHeading],
-  templateUrl: './gallery.html',
-  styleUrl: './gallery.scss',
+  templateUrl: './parrilla.html',
+  styleUrl: './parrilla.scss',
 })
-export class Gallery {
+export class Parrilla {
   private readonly siteConfigService = inject(SiteConfigService);
   readonly config = this.siteConfigService.config;
 }

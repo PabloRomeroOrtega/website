@@ -4,8 +4,7 @@ import { SiteConfig } from './site-config.model';
 
 /**
  * Single access point for all business-specific content.
- * To re-skin this template for a new client, edit `site-config.ts` only.
- * Every component reads through this service.
+ * Edit `site-config.ts` to change texts, prices or contact data.
  */
 @Injectable({ providedIn: 'root' })
 export class SiteConfigService {

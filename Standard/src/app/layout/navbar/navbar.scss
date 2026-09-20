@@ -7,19 +7,21 @@
 }
 
 .navbar {
-  background: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  border-bottom: 1px solid transparent;
-  padding: 0;
   height: 72px;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 
   &--scrolled {
-    border-bottom-color: var(--mat-sys-outline-variant);
+    background: rgb(20 19 18 / 96%);
+    border-bottom-color: var(--ua-fire);
   }
 }
 
 .navbar__inner {
-  width: 100%;
+  height: 100%;
   max-width: var(--brand-container-width);
   margin: 0 auto;
   padding: 0 var(--brand-gutter);
@@ -30,33 +32,34 @@
 }
 
 .navbar__brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: none;
-  border: none;
-  cursor: pointer;
+  gap: 0.6rem;
   padding: 0;
-  font: var(--mat-sys-title-large);
-  font-weight: 700;
-  color: var(--mat-sys-primary);
-
-  mat-icon {
-    font-size: 1.75rem;
-    width: 1.75rem;
-    height: 1.75rem;
-  }
+  border: 0;
+  background: none;
+  color: var(--ua-cream);
+  font: 400 1.35rem/1 var(--ua-display);
+  cursor: pointer;
 }
 
 .navbar__links {
-  display: none;
-  align-items: center;
-  gap: 0.15rem;
-  flex: 1;
-  justify-content: center;
+  display: flex;
+  gap: 0.25rem;
 
-  @media (min-width: 900px) {
-    display: flex;
+  button {
+    padding: 0.6rem 0.9rem;
+    border: 0;
+    background: none;
+    color: var(--ua-cream);
+    font: 800 0.95rem/1 var(--ua-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--ua-sun);
+    }
   }
 }
 
@@ -66,8 +69,33 @@
   gap: 0.5rem;
 }
 
+.navbar__cta {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.95rem;
+  box-shadow: none;
+}
+
 .navbar__menu-trigger {
-  @media (min-width: 900px) {
+  display: none;
+  padding: 0.4rem;
+  border: 0;
+  background: none;
+  color: var(--ua-cream);
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .navbar__links {
     display: none;
+  }
+
+  .navbar__menu-trigger {
+    display: inline-flex;
+  }
+
+  .navbar--scrolled,
+  .navbar {
+    background: rgb(20 19 18 / 96%);
   }
 }

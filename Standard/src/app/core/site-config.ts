@@ -1,191 +1,234 @@
 import { SiteConfig } from './site-config.model';
 
 /**
- * DEMO CONTENT. Edit the text and image URLs below to re-skin the template
- * for a new restaurant. Colors live in src/styles.scss (the mat.theme() call).
- * Every image field (heroImage, about.image, offerings items' image,
- * gallery images' src, location.image) is optional: leave it unset and the
- * section shows a placeholder box instead, ready to swap in a real photo.
+ * Contenido de "A la Uruguaya, bar y parrillada".
+ * La carta y los precios proceden de la carta física del local.
+ * Los datos de contacto (`contact`) se dejan vacíos hasta tenerlos confirmados:
+ * mientras estén vacíos, los botones y bloques que dependen de ellos no se muestran.
  */
 export const SITE_CONFIG: SiteConfig = {
   business: {
-    name: 'Casa Almendro',
-    shortName: 'Casa Almendro',
-    tagline: 'Restaurante de cocina mediterránea en Madrid',
-    logoIcon: 'restaurant_menu',
+    name: 'A la Uruguaya',
+    shortName: 'A la Uruguaya',
+    kind: 'Bar y parrillada',
+    tagline: 'Carne a las brasas, braseros para compartir y chivitos. Bar y parrillada para venir con hambre.',
     description:
-      'Servimos comida de mercado de martes a domingo. La carta es corta y cambia varias veces al año según la temporada.',
-    heroBadge: 'Abierto hoy de 13:00 a 16:30 y de 20:00 a 23:30',
+      'Bar y parrillada donde todo pasa por el fuego: entrecot, chorizo y morcilla, chinchulín y braseros para 1, 2 o 4. Ven con hambre.',
+    heroBadge: 'Menú del día 10,50 € · Martes a viernes',
+    heroImages: {
+      main: 'images/parrilla-brasas.jpg',
+      secondary: 'images/brasero.jpg',
+      alt: 'Parrilla de ladrillo con brasas, carne y chorizos asándose',
+      secondaryAlt: 'Brasero de parrilla con carnes, chorizos y verdura grillada',
+    },
   },
 
   nav: [
     { label: 'Inicio', sectionId: 'inicio' },
+    { label: 'Parrilla', sectionId: 'parrilla' },
     { label: 'Carta', sectionId: 'carta' },
-    { label: '¿Quiénes somos?', sectionId: 'quienes-somos' },
-    { label: 'Galería', sectionId: 'galeria' },
-    { label: 'Localización', sectionId: 'localizacion' },
-    { label: 'Reserva y Contacto', sectionId: 'reserva' },
+    { label: 'Fotos', sectionId: 'galeria' },
+    { label: 'Reservar', sectionId: 'reserva' },
+    { label: 'Visítanos', sectionId: 'visitanos' },
   ],
 
   highlights: [
     {
-      icon: 'eco',
-      title: 'Producto de temporada',
-      description: 'Compramos en el mercado varias veces por semana.',
-    },
-    {
       icon: 'local_fire_department',
-      title: 'Cocina lenta',
-      description: 'Los guisos se preparan el mismo día, sin atajos.',
+      title: 'Parrilla a las brasas',
+      description: 'Entrecot, chorizo, morcilla, chinchulín y más, directo de la parrilla.',
     },
     {
-      icon: 'local_parking',
-      title: 'Aparcamiento cercano',
-      description: 'Hay parking público a menos de 50 metros de la puerta.',
+      icon: 'groups',
+      title: 'Braseros para 1, 2 o 4',
+      description: 'Elige tu tamaño y compártelo en la mesa.',
     },
     {
-      icon: 'event_available',
-      title: 'Reserva fácil',
-      description: 'Por teléfono o directamente desde esta página.',
+      icon: 'restaurant',
+      title: 'Menú del día 10,50 €',
+      description: 'De martes a viernes.',
+    },
+    {
+      icon: 'local_pizza',
+      title: 'Carta de pizzas',
+      description: 'Pídela en el local.',
     },
   ],
 
-  about: {
-    title: '¿Quiénes somos?',
-    subtitle: 'Un restaurante familiar en el barrio de La Latina',
-    paragraphs: [
-      'Abrimos en 2014 con una carta pequeña y unas pocas mesas. Con los años hemos crecido, pero seguimos cocinando nosotros mismos cada día.',
-      'La carta cambia varias veces al año según lo que encontramos en el mercado. Si tienes alguna alergia o intolerancia, dínoslo al hacer la reserva.',
+  parrilla: {
+    title: 'Nuestra parrilla',
+    subtitle: 'El corazón de la casa. Todos los braseros y combinados incluyen guarnición.',
+    guarnicion: 'Todos los combinados y braseros incluyen guarnición.',
+    braseros: [
+      { name: 'Brasero parrilla', serves: 'Para 1', price: '24,90 €' },
+      { name: 'Brasero parrilla', serves: 'Para 2', price: '43,90 €' },
+      { name: 'Brasero parrilla', serves: 'Para 4', price: '66,90 €' },
     ],
+    extras: [
+      { name: 'Entrecot', price: '18,00 €' },
+      {
+        name: 'Plato parrilla',
+        price: '16,50 €',
+        description: 'Colita de cuadril, picaña, cabeza de lomo, cerdo o asado, a elegir.',
+      },
+      { name: 'Chuletón', price: '52,00 €' },
+      { name: 'Chinchulín (ración)', price: '5,90 €' },
+      { name: 'Chorizo y morcilla (ud.)', price: '4,00 €' },
+      { name: 'Verdura grillada', price: '5,50 €' },
+    ],
+    image: 'images/brasero-mesa.jpg',
+    imageAlt: 'Brasero de parrilla sobre la mesa, con cerveza, ensalada y pan',
   },
 
-  offerings: {
-    title: 'Nuestra Carta',
-    subtitle: 'Platos de temporada, cocinados el mismo día',
-    categoryAllLabel: 'Todo',
-    items: [
+  menu: {
+    title: 'La carta',
+    subtitle: 'Todo lo que sale de nuestra cocina y de nuestra parrilla.',
+    allLabel: 'Toda la carta',
+    menuDelDia: { title: 'Menú del día', price: '10,50 €', days: 'Martes a viernes' },
+    pizzasNote: 'Pide nuestra carta de pizzas',
+    categories: [
       {
-        id: 'entrante-1',
-        name: 'Ensalada de temporada',
-        description: 'Verduras de temporada, según lo que haya en el mercado esa semana.',
-        price: '8€',
-        category: 'Entrantes',
-        tags: ['Vegetariana'],
+        id: 'raciones',
+        name: 'Raciones',
+        icon: 'tapas',
+        items: [
+          { name: 'Patatas bravas', price: '9,90 €' },
+          { name: 'Huevos rotos', price: '13,90 €' },
+          { name: 'Alitas fritas', price: '11,00 €' },
+          { name: 'Oreja a la plancha', price: '12,50 €' },
+          { name: 'Torreznos de Soria', price: '12,90 €' },
+          { name: 'Patatas champi', price: '12,90 €' },
+          { name: 'Tequeños', price: '10,50 €' },
+          { name: 'Croquetas', price: '7,90 €' },
+          { name: 'Cochifrito', price: '11,50 €' },
+          { name: 'Revuelto de gramajo', price: '13,90 €' },
+        ],
       },
       {
-        id: 'entrante-2',
-        name: 'Ensalada César',
-        description: 'Lechuga, pollo a la plancha, parmesano y salsa césar.',
-        price: '9€',
-        category: 'Entrantes',
+        id: 'combinados',
+        name: 'Combinados',
+        icon: 'dinner_dining',
+        items: [
+          {
+            name: 'Chivito al plato',
+            price: '15,90 €',
+            description:
+              'Filete de ternera, mixta, rusa, jamón york, mozzarella, salsa de tomate y patatas fritas.',
+          },
+          {
+            name: 'Milanesa napolitana',
+            price: '15,90 €',
+            description:
+              'Empanado de ternera, mozzarella, salsa de tomate, rusa, mixta, huevo frito, jamón york y patatas fritas.',
+          },
+          { name: 'Milanesa con patata y huevo', price: '12,90 €' },
+          {
+            name: 'Filete con patata y huevo',
+            price: '12,90 €',
+            description: 'De pollo, ternera o cerdo.',
+          },
+        ],
       },
       {
-        id: 'principal-1',
-        name: 'Bol de salmón',
-        description: 'Salmón marinado, arroz templado, edamame y sésamo.',
-        price: '16€',
-        category: 'Principales',
+        id: 'hamburguesas',
+        name: 'Hamburguesas',
+        icon: 'lunch_dining',
+        items: [
+          { name: 'Clásica', price: '9,90 €', description: 'Pan, carne de buey, jamón y queso.' },
+          {
+            name: 'Bomba',
+            price: '13,90 €',
+            description: 'Pan, doble carne de buey, cheddar, tomate, cebolla caramelizada, beicon, jamón y huevo.',
+          },
+        ],
       },
       {
-        id: 'principal-2',
-        name: 'Pasta salteada',
-        description: 'Pasta con setas de temporada y un toque picante.',
-        price: '14€',
-        category: 'Principales',
-        tags: ['Vegetariana'],
+        id: 'bocadillos',
+        name: 'Bocadillos',
+        icon: 'bakery_dining',
+        items: [
+          { name: 'Choripán con salsas', price: '5,50 €', description: 'Tomate, lechuga, mayonesa, etc.' },
+          { name: 'Choripán', price: '4,50 €' },
+          { name: 'Bocadillo de carne', price: '7,90 €' },
+          { name: 'Bocadillo', price: '5,50 €', description: 'Lomo, beicon o embutidos.' },
+        ],
       },
       {
-        id: 'principal-3',
-        name: 'Hamburguesa de la casa',
-        description: 'Carne de vacuno, queso curado, cebolla confitada y pan brioche.',
-        price: '15€',
-        category: 'Principales',
+        id: 'empanadas',
+        name: 'Empanadas',
+        icon: 'cookie',
+        items: [
+          { name: 'Carne', price: '3,60 €' },
+          { name: 'Chorizo', price: '3,60 €' },
+          { name: 'Jamón y queso', price: '3,60 €' },
+          { name: 'Veganas', price: '3,80 €' },
+        ],
       },
       {
-        id: 'postre-1',
-        name: 'Volcán de chocolate',
-        description: 'Bizcocho de chocolate con centro líquido y helado de vainilla.',
-        price: '7€',
-        category: 'Postres',
+        id: 'ensaladas',
+        name: 'Ensaladas',
+        icon: 'eco',
+        items: [
+          { name: 'Caprese', price: '8,50 €', description: 'Tomatito cherry, albahaca y queso búfala.' },
+          { name: 'Tomatito rosa', price: '8,90 €', description: 'Cebolla morada, pepinillos y melva.' },
+        ],
       },
       {
-        id: 'bebida-1',
-        name: 'Cóctel de la casa',
-        description: 'Cambia según la temporada. Pregunta en sala cuál es el de este mes.',
-        price: '9€',
-        category: 'Bebidas',
+        id: 'postres',
+        name: 'Postres',
+        icon: 'cake',
+        items: [
+          { name: 'Tartas artesanales', price: '6,50 €' },
+          { name: 'Tartas variadas', price: '4,90 €' },
+        ],
       },
       {
-        id: 'bebida-2',
-        name: 'Zumo de naranja',
-        description: 'Natural, exprimido al momento.',
-        price: '4€',
-        category: 'Bebidas',
+        id: 'pan',
+        name: 'Pan',
+        icon: 'breakfast_dining',
+        items: [{ name: 'Cesta de pan', price: '0,50 €' }],
       },
     ],
   },
 
   gallery: {
-    title: 'Fotos',
-    subtitle: 'Fotos del local y de algunos platos de la carta',
-    categoryAllLabel: 'Todo',
+    title: 'Así se come en A la Uruguaya',
+    subtitle: 'Fotos reales del local y de nuestros platos.',
     images: [
-      { alt: 'Comedor principal', category: 'Local' },
-      { alt: 'Barra', category: 'Local' },
-      { alt: 'Terraza', category: 'Local' },
-      { alt: 'Cocina', category: 'Local' },
-      { alt: 'Plato de la carta', category: 'Comida' },
-      { alt: 'Plato de la carta', category: 'Comida' },
+      { src: 'images/brasero-mesa.jpg', alt: 'Brasero de parrilla sobre la mesa con cerveza y ensalada' },
+      { src: 'images/milanesa-napolitana.jpg', alt: 'Milanesa napolitana con huevos fritos, jamón york y patatas fritas' },
+      { src: 'images/parrilla-brasas.jpg', alt: 'Parrilla de ladrillo con brasas y carne asándose' },
+      { src: 'images/tabla-raciones.jpg', alt: 'Ración sobre pizarra con patatas, pimientos de padrón y salsa' },
+      { src: 'images/brasero.jpg', alt: 'Brasero con chorizos, carne y verdura grillada' },
+      { src: 'images/tarta-chocolate.jpg', alt: 'Tarta de chocolate sobre pizarra con cubiertos dibujados en azúcar' },
     ],
-  },
-
-  location: {
-    title: 'Encuéntranos',
-    subtitle: 'Cómo llegar hasta el restaurante',
-    hoursSummary: 'Hoy: 13:00 a 16:30 y 20:00 a 23:30',
   },
 
   reservation: {
-    enabled: true,
-    title: 'Reserva y Contacto',
-    subtitle: 'Reserva online o llama por teléfono. Confirmamos por teléfono o email.',
-    partySizes: [1, 2, 3, 4, 5, 6, 7, 8],
-    timeSlots: [
-      '13:00',
-      '13:30',
-      '14:00',
-      '14:30',
-      '15:00',
-      '20:00',
-      '20:30',
-      '21:00',
-      '21:30',
-      '22:00',
-    ],
-    successMessage: 'Hemos recibido tu solicitud de mesa. Te confirmaremos por teléfono o email en breve.',
+    title: 'Reserva tu mesa',
+    subtitle: 'Llámanos o escríbenos por WhatsApp. Así tu reserva queda registrada por escrito en el restaurante.',
+    partySizes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    messageIntro: 'Hola, quiero reservar una mesa en A la Uruguaya.',
+    steps: ['Elige fecha, hora y personas', 'Se abre WhatsApp con tu mensaje listo', 'Envíalo y te confirmamos la mesa'],
+  },
+
+  visit: {
+    title: 'Ven a vernos',
+    subtitle: 'Te esperamos en A la Uruguaya, bar y parrillada.',
+    image: 'images/fachada-cartel.jpg',
+    imageAlt: 'Cartel de A la Uruguaya, bar y parrillada, sobre el tejado del local',
   },
 
   contact: {
-    address: 'Calle Almendro 12, 28012 Madrid',
-    phone: '910 123 456',
-    email: 'hola@casaalmendro.example',
-    hours: [
-      { day: 'Lunes', hours: '13:00 - 16:30' },
-      { day: 'Martes', hours: '13:00 - 16:30 y 20:00 - 23:00' },
-      { day: 'Miércoles', hours: '13:00 - 16:30 y 20:00 - 23:00' },
-      { day: 'Jueves', hours: '13:00 - 16:30 y 20:00 - 23:30' },
-      { day: 'Viernes', hours: '13:00 - 16:30 y 20:00 - 00:00' },
-      { day: 'Sábado', hours: '13:00 - 17:00 y 20:00 - 00:00' },
-      { day: 'Domingo', hours: 'Cerrado', closed: true },
-    ],
-    socials: [
-      { icon: 'photo_camera', url: 'https://instagram.com', label: 'Instagram' },
-      { icon: 'forum', url: 'https://facebook.com', label: 'Facebook' },
-      { icon: 'chat', url: 'https://wa.me/34910123456', label: 'WhatsApp' },
-    ],
+    address: '',
+    phone: '',
+    whatsapp: '',
+    email: '',
+    hours: '',
+    socials: [],
   },
 
   footer: {
-    copyrightName: 'Casa Almendro',
+    copyrightName: 'A la Uruguaya',
   },
 };

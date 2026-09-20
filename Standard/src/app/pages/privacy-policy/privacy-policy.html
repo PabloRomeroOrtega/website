@@ -3,50 +3,41 @@
   <p class="legal__updated">Última actualización: septiembre de 2026</p>
 
   <div class="legal__notice">
-    Este texto es un modelo genérico incluido con la plantilla, no un documento legal definitivo. Antes de
-    publicarlo, revísalo con un abogado o asesor especializado en protección de datos y adáptalo a la actividad real
-    del negocio.
+    Este texto es un modelo genérico, no un documento legal definitivo. Antes de publicar la web, revísalo con un
+    asesor especializado en protección de datos y adáptalo a la actividad real del negocio.
   </div>
 
-  <h2>Responsable del tratamiento</h2>
+  <h2>Responsable</h2>
   <p>
-    {{ config.business.name }}, con dirección en {{ config.contact.address }}, es responsable de los datos que se
-    recogen a través de esta web. Puedes contactar por email en
-    <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>
-    o por teléfono en <a [href]="'tel:' + config.contact.phone">{{ config.contact.phone }}</a>.
+    {{ config.business.name }}, {{ config.business.kind.toLowerCase() }}.
+    @if (config.contact.address) {
+      Dirección: {{ config.contact.address }}.
+    }
+    @if (config.contact.email) {
+      Contacto:
+      <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>.
+    }
   </p>
 
-  <h2>Qué datos recogemos</h2>
-  <p>A través del formulario de reserva se recogen los siguientes datos:</p>
-  <ul>
-    <li>Nombre completo</li>
-    <li>Teléfono</li>
-    <li>Correo electrónico</li>
-    <li>Fecha, hora y número de comensales</li>
-    <li>Notas opcionales (por ejemplo, alergias o preferencias de mesa)</li>
-  </ul>
-
-  <h2>Para qué usamos estos datos</h2>
+  <h2>Datos que recogemos</h2>
   <p>
-    Los datos se usan únicamente para gestionar la reserva y para contactar contigo si es necesario confirmar o
-    modificar los detalles. No se usan para enviar publicidad ni se ceden a terceros.
-  </p>
-
-  <h2>Cuánto tiempo se conservan</h2>
-  <p>
-    Los datos se conservan el tiempo necesario para gestionar la reserva y, después, durante el plazo que exija la
-    normativa fiscal o mercantil aplicable.
+    Esta web es informativa (carta, fotos y datos del local) y no incluye formularios: no recoge ni almacena datos
+    personales. Si nos contactas por teléfono, WhatsApp o email, usaremos tus datos únicamente para responderte.
   </p>
 
   <h2>Tus derechos</h2>
   <p>
-    Puedes solicitar el acceso, la rectificación o la eliminación de tus datos escribiendo a
-    <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>.
+    Puedes solicitar el acceso, la rectificación o la eliminación de cualquier dato que nos hayas facilitado
+    por esos canales
+    @if (config.contact.email) {
+      escribiendo a <a [href]="'mailto:' + config.contact.email">{{ config.contact.email }}</a>
+    }
+    .
   </p>
 
   <h2>Cookies</h2>
   <p>
-    Esta web no utiliza cookies de analítica ni de publicidad. Solo se usan las cookies técnicas necesarias para su
-    funcionamiento.
+    Esta web no utiliza cookies de analítica ni de publicidad. Si se muestra un mapa de Google Maps, este servicio
+    puede establecer sus propias cookies según su política.
   </p>
 </div>

@@ -1,0 +1,135 @@
+.parrilla {
+  padding: 5.5rem 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 0% 0%, rgb(232 87 26 / 22%), transparent 70%),
+    var(--ua-slate);
+}
+
+.parrilla__inner {
+  max-width: var(--brand-container-width);
+  margin: 0 auto;
+  padding: 0 var(--brand-gutter);
+}
+
+.parrilla__feature {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.parrilla__photo {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
+  border-radius: var(--brand-radius-md);
+  box-shadow: 14px 14px 0 var(--ua-fire);
+}
+
+.parrilla__braseros {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.brasero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.5rem;
+  background: var(--ua-slate-2);
+  border-left: 8px solid var(--ua-fire);
+  border-radius: var(--brand-radius-sm);
+}
+
+.brasero__serves {
+  display: block;
+  font: 400 1.9rem/1.1 var(--ua-display);
+  color: var(--ua-cream);
+}
+
+.brasero__name {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--ua-muted);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.brasero__price {
+  font: 400 clamp(1.7rem, 3.4vw, 2.3rem) / 1 var(--ua-display);
+  color: var(--ua-sun);
+  white-space: nowrap;
+}
+
+.parrilla__extras {
+  list-style: none;
+  margin: 3.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 3.5rem;
+
+  p {
+    margin-top: 0.2rem;
+    font-size: 0.95rem;
+    color: var(--ua-muted);
+  }
+}
+
+.extra__row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.extra__name {
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.extra__leader {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 2px dotted rgb(246 236 216 / 35%);
+}
+
+.extra__price {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--ua-sun);
+  white-space: nowrap;
+}
+
+.parrilla__note {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--ua-cream);
+}
+
+@media (max-width: 860px) {
+  .parrilla {
+    padding: 4rem 0;
+  }
+
+  .parrilla__feature,
+  .parrilla__extras {
+    grid-template-columns: 1fr;
+  }
+
+  .parrilla__photo {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    box-shadow: 8px 8px 0 var(--ua-fire);
+  }
+}

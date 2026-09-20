@@ -1,0 +1,82 @@
+<section id="reserva" class="reserva">
+  <div class="reserva__inner">
+    <div class="reserva__intro">
+      <app-section-heading
+        eyebrow="Reservas"
+        [title]="config.reservation.title"
+        [subtitle]="config.reservation.subtitle"
+        align="left"
+      />
+
+      <ol class="reserva__steps">
+        @for (step of config.reservation.steps; track step) {
+          <li>{{ step }}</li>
+        }
+      </ol>
+
+      @if (phone) {
+        <a class="btn btn--sun reserva__call" [href]="'tel:' + phone">
+          <mat-icon>call</mat-icon>
+          Llamar al {{ phone }}
+        </a>
+      }
+    </div>
+
+    <form class="reserva__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <h3>Reserva por WhatsApp</h3>
+
+      <label class="field field--full">
+        <span>Nombre</span>
+        <input type="text" formControlName="fullName" autocomplete="name" />
+        @if (form.controls.fullName.invalid && form.controls.fullName.touched) {
+          <small>Escribe tu nombre.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Fecha</span>
+        <input type="date" formControlName="date" [min]="minDate" />
+        @if (form.controls.date.invalid && form.controls.date.touched) {
+          <small>Elige una fecha.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Hora</span>
+        <input type="time" formControlName="time" />
+        @if (form.controls.time.invalid && form.controls.time.touched) {
+          <small>Elige una hora.</small>
+        }
+      </label>
+
+      <label class="field field--full">
+        <span>Personas</span>
+        <select formControlName="guests">
+          @for (n of config.reservation.partySizes; track n) {
+            <option [value]="n">{{ n }} {{ n === 1 ? 'persona' : 'personas' }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field field--full">
+        <span>Notas (opcional)</span>
+        <textarea
+          formControlName="notes"
+          rows="2"
+          placeholder="Alergias, cumpleaños, trona…"
+        ></textarea>
+      </label>
+
+      <button class="btn btn--fire reserva__submit" type="submit">
+        <mat-icon>chat</mat-icon>
+        Reservar por WhatsApp
+      </button>
+
+      @if (unavailable()) {
+        <p class="reserva__notice" role="status">
+          Aún no podemos recibir reservas por aquí. Consulta la carta y vuelve pronto.
+        </p>
+      }
+    </form>
+  </div>
+</section>
